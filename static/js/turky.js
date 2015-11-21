@@ -8,6 +8,7 @@ var EVENTS = [];
 
 $('#navEvents').on('click', function(e) {
 	e.preventDefault();
+	updateEvents();
 	for (var i = 0; i < pages.length; i++) {
 		if (i !== 1) {
 			pages[i].hide();
@@ -53,14 +54,20 @@ $('#createEventBtn').on('click', function(e) {
 
 
 $('#createEvent_addCook').on('click', function(e){
+	if (cooksForEvent !== 0) {
+		$('#createEvent_cookName'+cooksForEvent).attr('value', $('#createEvent_cookName'+cooksForEvent).val());
+	}
 	var temp = $('#createEvent_cooks').html();
-	$('#createEvent_cooks').html(temp+"<li><h5>Add some cook friend stuff here</h5><form><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" placeholder=\"Cook Name...\"></form></li>");
+	$('#createEvent_cooks').html(temp+"<li><h5>Add some cook friend stuff here</h5><form><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" value=\"\" placeholder=\"Cook Name...\"></form></li>");
 	cooksForEvent++;
 });
 
 $('#createEvent_addFood').on('click', function(e){
+	if (foodsForEvent !== 0) {
+		$('#createEvent_foodName'+foodsForEvent).attr('value', $('#createEvent_foodName'+foodsForEvent).val());
+	}
 	var temp = $('#createEvent_foods').html();
-	$('#createEvent_foods').html(temp+"<li><h5>Name of Food</h5><form><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" placeholder=\"Food Name...\"></form></li>");
+	$('#createEvent_foods').html(temp+"<li><h5>Name of Food</h5><form><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" value=\"\" placeholder=\"Food Name...\"></form></li>");
 	foodsForEvent++;
 });
 
@@ -86,11 +93,13 @@ $('#createEvent_save').on('click', function(e){
 		$('#createEvent_foodName'+i).val("");
 	}
 
+	$('#createEvent_cooks').html("");
+	$('#createEvent_foods').html("");
 	
 
 	EVENTS.push(temp);
 
-	updateEvents(temp, cooksForEvent, foodsForEvent);
+	saveEvents(temp);
 
 	cooksForEvent = 0;
 	foodsForEvent = 0;
@@ -105,8 +114,31 @@ $('#createEvent_save').on('click', function(e){
 });
 
 
-updateEvents = function(newEvent, c, f) {
-	var temp = $('#events_events').html();
+saveEvents = function(newEvent) {
+	$.ajax ({
+        type: "POST",
+        url: "/eventList",
+        data: JSON.stringify(newEvent),
+        contentType: "application/json",
+        complete: function() {
+        	updateEvents()
+        }
+    });
+}
+
+
+updateEvents = function() {
+	$.getJSON("/eventList").
+		done( function(data) {
+			var toAdd = "";
+			for (var i = 0; i < data.length; i++) {
+				toAdd += updateEvent(data[i], data[i].cooks.length, data[i].foods.length);
+			}
+			$('#events_events').html(toAdd);
+		});
+}
+
+updateEvent = function(newEvent, c, f) {
 	var toAdd = "<li><h3>"+newEvent.name+"</h3><ul>";
 	
 	for (var i = 0; i < f; i++){
@@ -115,7 +147,7 @@ updateEvents = function(newEvent, c, f) {
 
 	toAdd += "</ul></li>";
 
-	$('#events_events').html(temp+toAdd);
+	return toAdd;
 }
 
 

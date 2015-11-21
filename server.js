@@ -14,4 +14,16 @@ app.get("/", function(req,res){
 	res.render("index.ejs");
 });
 
+app.get("/eventList", function(req, res){
+	var eventsObject = fs.readFileSync("data/events.json");
+	res.send(eventsObject);
+});
+
+app.post("/eventList", function(req, res){
+	var eventsObject = JSON.parse(fs.readFileSync("data/events.json", "utf8"));
+	eventsObject.push(req.body);
+	fs.writeFileSync("data/events.json", JSON.stringify(eventsObject));
+	res.send("done");
+});
+
 app.listen(process.env.PORT || 4000);
