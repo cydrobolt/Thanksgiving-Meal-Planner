@@ -30,6 +30,14 @@ app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs");
 });
 
+app.get("/myaccount", function(req,res){
+	res.render("myaccount.ejs");
+});
+
+app.get("/dashboard", function(req,res){
+	res.render("dashboard.ejs");
+});
+
 app.get("/eventList", function(req, res){
 	var eventsObject = fs.readFileSync("data/events.json");
 	res.send(eventsObject);
