@@ -74,7 +74,7 @@ saveEvents = function(newEvent) {
         	updateEvents()
         }
     });
-}
+};
 
 
 updateEvents = function() {
@@ -86,7 +86,7 @@ updateEvents = function() {
 			}
 			$('#events_events').html(toAdd);
 		});
-}
+};
 
 updateEvent = function(newEvent, c, f) {
 	var toAdd = "<li><h3>"+newEvent.name+"</h3><ul>";
