@@ -1,0 +1,22 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 0
+}
+body,
+nav {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #000084;
+    background-color: #F8F8F8
+}
+body a {
+    text-decoration: underline
+}
+h1 {
+    text-align: center
+}

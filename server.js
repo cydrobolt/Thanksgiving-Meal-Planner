@@ -7,7 +7,7 @@ var ejs = require("ejs");
 
 app.use(bodyParser.json());  
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/public", express.static('files'));
+app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
 
 
