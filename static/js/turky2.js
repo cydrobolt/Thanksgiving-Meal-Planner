@@ -4,16 +4,16 @@ var cooksForEvent = 0;
 var EVENTS = [];
 
 $('#createEvent_addCook').on('click', function(e){
-	$('#createEvent_cooks').append("<li><h5>Add some cook friend stuff here</h5><form><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" placeholder=\"Cook Name...\"></form></li>");
+	$('#createEvent_cooks').append("<li><h5>Add some cook friend stuff here</h5><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" placeholder=\"Cook Name...\" required></li>");
 	cooksForEvent++;
 });
 
 $('#createEvent_addFood').on('click', function(e){
-	$('#createEvent_foods').append("<li><h5>Name of Food</h5><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" placeholder=\"Food Name...\"></li>");
+	$('#createEvent_foods').append("<li><h5>Name of Food</h5><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" placeholder=\"Food Name...\" required></li>");
 	foodsForEvent++;
 });
 
-$('#createEvent_save').on('click', function(e){
+$('#createEvent_save').submit(function(e){
 	var temp = {
 		"name": $('#createEvent_name').val(),
 		"date": $('#createEvent_date').val(),
@@ -22,17 +22,12 @@ $('#createEvent_save').on('click', function(e){
 		"foods": []
 	};
 
-	$('#createEvent_name').val("");
-	$('#createEvent_date').val("");
-
 	for (var i = 0; i < cooksForEvent; i++){
 		temp.cooks.push($('#createEvent_cookName'+i).val());
-		$('#createEvent_cookName'+i).val("");
 	}
 
 	for (var i = 0; i < foodsForEvent; i++){
 		temp.foods.push($('#createEvent_foodName'+i).val());
-		$('#createEvent_foodName'+i).val("");
 	}
 
 	$('#createEvent_cooks').html("");
