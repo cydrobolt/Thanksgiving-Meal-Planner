@@ -1,6 +1,6 @@
 
 
-var pages = [$('#loginPage'), $('#eventsPage'), $('#createEventPage'), $('#recipiesPage'), $('#viewRecipiePage'), $('#editRecipiePage')];
+var pages = [$('#loginPage'), $('#eventsPage'), $('#createEventPage'), $('#recipesPage'), $('#viewRecipePage'), $('#editRecipePage')];
 var foodsForEvent = 0;
 var cooksForEvent = 0;
 
@@ -30,7 +30,7 @@ $('#navHome').on('click', function(e) {
 	}
 });
 
-$('#navRecipies').on('click', function(e) {
+$('#navRecipes').on('click', function(e) {
 	e.preventDefault();
 	for (var i = 0; i < pages.length; i++) {
 		if (i !== 3) {
@@ -142,7 +142,7 @@ updateEvent = function(newEvent, c, f) {
 	var toAdd = "<li><h3>"+newEvent.name+"</h3><ul>";
 	
 	for (var i = 0; i < f; i++){
-		toAdd += "<li><h5><a href=\"/recipies\">"+newEvent.foods[i]+"</a></h5></li>"
+		toAdd += "<li><h5><a href=\"/recipes\">"+newEvent.foods[i]+"</a></h5></li>"
 	}
 
 	toAdd += "</ul></li>";
