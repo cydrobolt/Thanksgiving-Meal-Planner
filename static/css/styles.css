@@ -20,3 +20,13 @@ body a {
 h1 {
     text-align: center
 }
+.container {
+    height: 80%;
+}
+.bodyText {
+    padding-top: 70px;
+    height: 100%
+}
+.cNavbar {
+    text-decoration: none;
+}
