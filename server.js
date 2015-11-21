@@ -14,6 +14,22 @@ app.get("/", function(req,res){
 	res.render("index.ejs");
 });
 
+app.get("/recipes", function(req,res){
+	res.render("recipes.ejs");
+});
+
+app.get("/events", function(req,res){
+	res.render("events.ejs");
+});
+
+app.get("/createevent", function(req,res){
+	res.render("createEvent.ejs");
+});
+
+app.get("/editrecipe", function(req,res){
+	res.render("editRecipe.ejs");
+});
+
 app.get("/eventList", function(req, res){
 	var eventsObject = fs.readFileSync("data/events.json");
 	res.send(eventsObject);
