@@ -4,20 +4,12 @@ var cooksForEvent = 0;
 var EVENTS = [];
 
 $('#createEvent_addCook').on('click', function(e){
-	if (cooksForEvent !== 0) {
-		$('#createEvent_cookName'+cooksForEvent).attr('value', $('#createEvent_cookName'+cooksForEvent).val());
-	}
-	var temp = $('#createEvent_cooks').html();
-	$('#createEvent_cooks').html(temp+"<li><h5>Add some cook friend stuff here</h5><form><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" value=\"\" placeholder=\"Cook Name...\"></form></li>");
+	$('#createEvent_cooks').append("<li><h5>Add some cook friend stuff here</h5><form><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" placeholder=\"Cook Name...\"></form></li>");
 	cooksForEvent++;
 });
 
 $('#createEvent_addFood').on('click', function(e){
-	if (foodsForEvent !== 0) {
-		$('#createEvent_foodName'+foodsForEvent).attr('value', $('#createEvent_foodName'+foodsForEvent).val());
-	}
-	var temp = $('#createEvent_foods').html();
-	$('#createEvent_foods').html(temp+"<li><h5>Name of Food</h5><form><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" value=\"\" placeholder=\"Food Name...\"></form></li>");
+	$('#createEvent_foods').append("<li><h5>Name of Food</h5><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" placeholder=\"Food Name...\"></li>");
 	foodsForEvent++;
 });
 
@@ -72,8 +64,8 @@ saveEvents = function(newEvent) {
         contentType: "application/json",
         complete: function() {
         	updateEvents()
-        }
-    });
+       }
+   });
 };
 
 
