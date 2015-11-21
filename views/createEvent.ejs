@@ -1,25 +1,24 @@
 <% include top %>
 
-	<h1>Create an Event</h1>
-
+<h1>Create an Event</h1>
+<form id="createEventPage">
 	<ul>
-			<h4>Name of Event</h4>
-			<form>
-				<input type="text" id="createEvent_name" value="" placeholder="Name..." required>
-			<h4>Date of Event</h4>
-			<form>
-				<input type="text" id="createEvent_date" value="" placeholder="Date..." required>
-			<h4>Cooks to Invite</h4>
-			<ul id="createEvent_cooks">
-				<li><h5>Put friend code here later</h5></li>
-			</ul>
-				<input type="button" id="createEvent_addCook" value="Add Cook">
-			<h4>Food to be Cooked</h4>
-			<ul id="createEvent_foods">
-			</ul>
-				<input type="button" id="createEvent_addFood" value="Add Food">
+		<h4>Name of Event</h4>
+
+		<input type="text" id="createEvent_name" value="" placeholder="Name..." required>
+		<h4>Date of Event</h4>
+		<input type="text" id="createEvent_date" value="" placeholder="Date..." required>
+		<h4>Cooks to Invite</h4>
+		<ul id="createEvent_cooks">
+			<li><h5>Put friend code here later</h5></li>
+		</ul>
+		<input type="button" id="createEvent_addCook" value="Add Cook">
+		<h4>Food to be Cooked</h4>
+		<ul id="createEvent_foods">
+		</ul>
+		<input type="button" id="createEvent_addFood" value="Add Food">
 	</ul>
-		<input type="submit" id="createEvent_save" value="Save Event">
-	</form>
+	<input type="submit" id="createEvent_save" value="Save Event">
+</form>
 
 <% include bottom %>

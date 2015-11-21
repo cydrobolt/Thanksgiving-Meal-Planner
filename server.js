@@ -44,7 +44,7 @@ app.get("/eventList", function(req, res){
 });
 
 app.post("/eventList", function(req, res){
-	var eventsObject = JSON.parse(fs.readFileSync("data/events.json", "utf8"));
+	var eventsObject = JSON.parse(fs.readFileSync("data/events.json"));
 	eventsObject.push(req.body);
 	fs.writeFileSync("data/events.json", JSON.stringify(eventsObject));
 	res.send("done");
