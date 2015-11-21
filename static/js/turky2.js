@@ -13,9 +13,10 @@ $('#createEvent_addFood').on('click', function(e){
 	foodsForEvent++;
 });
 
-$('form[id=createEventPage]').on('submit', function(e){	
+$('form[id=createEventPage]').on('submit', function(e){
 	e.preventDefault();
 	createEventListing();
+	window.location.replace("/events");
 });
 
 function createEventListing(){
