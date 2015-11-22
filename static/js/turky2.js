@@ -1,9 +1,10 @@
 var foodsForEvent = 0;
 var cooksForEvent = 0;
-var stepsForRecipie = 0;
-var ingredForRecipie = 0;
+var stepsForRecipe = 0;
+var ingredForRecipe = 0;
 
 var EVENTS = [];
+var RECIPES = [];
 
 $('#createEvent_addCook').on('click', function(e){
 	$('#createEvent_cooks').append("<li><h5>Add some cook friend stuff here</h5><input type=\"text\" id=\"createEvent_cookName"+cooksForEvent+"\" placeholder=\"Cook Name...\" required></li>");
@@ -24,14 +25,14 @@ $('form[id=createEventPage]').on('submit', function(e){
 });
 
 
-$('#editRecipie_addStep').on('click', function(e){
-	$('#editRecipie_steps').append("<li><input type=\"text\" id=\"editRecipie_stepText"+stepsForRecipie+"\" placeholder=\"Recipie Step...\" required></li>");
-	stepsForRecipie++;
+$('#editRecipe_addStep').on('click', function(e){
+	$('#editRecipe_steps').append("<li><input type=\"text\" id=\"editRecipe_stepText"+stepsForRecipe+"\" placeholder=\"Recipe Step...\" required></li>");
+	stepsForRecipe++;
 });
 
-$('#editRecipie_addIngred').on('click', function(e){
-	$('#editRecipie_ingreds').append("<li><input type=\"text\" id=\"editRecipie_ingredText"+ingredForRecipie+"\" placeholder=\"Ingrediant and Amount...\" required></li>");
-	ingredForRecipie++;
+$('#editRecipe_addIngred').on('click', function(e){
+	$('#editRecipe_ingreds').append("<li><input type=\"text\" id=\"editRecipe_ingredText"+ingredForRecipe+"\" placeholder=\"Ingrediant and Amount...\" required></li>");
+	ingredForRecipe++;
 });
 
 
@@ -51,6 +52,7 @@ function createEventListing(){
 
 	for (var i = 0; i < foodsForEvent; i++){
 		temp.foods.push($('#createEvent_foodName'+i).val());
+		createRecipeListing(temp.foods[i]);
 	}
 
 	$('#createEvent_cooks').html("");
@@ -58,11 +60,37 @@ function createEventListing(){
 	
 
 	EVENTS.push(temp);
-	console.log(temp);
 	saveEvents(temp);
 
 	cooksForEvent = 0;
 	foodsForEvent = 0;
+}
+
+
+function createRecipeListing(name) {
+	var temp = {
+		"name": name,
+		"owner": "nobodyYet",
+		"steps": [],
+		"ingreds": []
+	};
+
+	for (var i = 0; i < stepsForRecipe; i++){
+		temp.steps.push($('#editRecipe_addStep'+i).val());
+	}
+
+	for (var i = 0; i < ingredForRecipe; i++){
+		temp.ingreds.push($('#editRecipe_addIngred'+i).val());
+	}
+
+	$('#editRecipe_steps').html("");
+	$('#createEvent_ingreds').html("");
+
+	RECIPES.push(temp);
+	console.log(RECIPES);
+
+	stepsForRecipe = 0;
+	ingredForRecipe = 0;
 }
 
 
@@ -88,8 +116,9 @@ function updateEvents() {
 		}
 		$('#events_events').html(toAdd);
 		
-		$('.goToRecipie a').on('click', function(e) {
+		$('.goToRecipe a').on('click', function(e) {
 			e.preventDefault();
+			console.log(e.target.id+"   "+e.target.innerHTML);
 		});
 	});
 }
@@ -98,10 +127,9 @@ function updateEvent(newEvent, c, f) {
 	var toAdd = "<li><h3>"+newEvent.name+"</h3><ul>";
 	
 	for (var i = 0; i < f; i++){
-		toAdd += "<li><h5 class=\"goToRecipie\"><a id=\"recipie"+newEvent.foods[i]+"\" href=\"/viewrecipie\">"+newEvent.foods[i]+"</a></h5></li>"
+		toAdd += "<li><h5 class=\"goToRecipe\"><a id=\""+newEvent.name+"\" href=\"/viewrecipe\">"+newEvent.foods[i]+"</a></h5></li>"
 	}
 
 	toAdd += "</ul></li>";
-
 	return toAdd;
 }
