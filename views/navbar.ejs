@@ -10,7 +10,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="<%= (title=='home' || title=='login') ? 'active' : ''%>"><a href="/" class="cNavbar" id="navHome">KAMP</a></li>
+        <li class="<%= (title=='home' || title=='login' || title=='signup') ? 'active' : ''%>"><a href="/" class="cNavbar" id="navHome">KAMP</a></li>
         <li class="<%= title=='recipes' ? 'active' : ''%>"><a href="/recipes" class="cNavbar" id="navRecipes">Recipes</a></li>
         <li class="<%= (title=='events' || title=='createEvent') ? 'active' : ''%>"><a href="/events" class="cNavbar" id="navEvents">Events</a></li>
       </ul>
