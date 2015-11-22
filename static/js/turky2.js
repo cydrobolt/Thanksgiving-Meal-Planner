@@ -52,6 +52,7 @@ function createEventListing(){
 
 	for (var i = 0; i < foodsForEvent; i++){
 		temp.foods.push($('#createEvent_foodName'+i).val());
+		createRecipeListing(temp.foods[i]);
 	}
 
 	$('#createEvent_cooks').html("");
