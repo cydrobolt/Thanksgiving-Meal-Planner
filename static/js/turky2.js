@@ -31,7 +31,7 @@ $('#editRecipe_addStep').on('click', function(e){
 });
 
 $('#editRecipe_addIngred').on('click', function(e){
-	$('#editRecipe_ingreds').append("<li><input type=\"text\" id=\"editRecipe_ingredText"+ingredForRecipe+"\" placeholder=\"Ingrediant and Amount...\" required></li>");
+	$('#editRecipe_ingreds').append("<li><input type=\"text\" id=\"editRecipe_ingredText"+ingredForRecipe+"\" placeholder=\"Ingredient and Amount...\" required></li>");
 	ingredForRecipe++;
 });
 
