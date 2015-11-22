@@ -75,10 +75,17 @@ app.get('/profile', isLoggedIn, function(req, res) {
         });
     });
 
- app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+ //app.get('/logout', function(req, res) {
+     //   req.session.destroy();
+    //    req.logout();
+      //  res.redirect('/');
+ //   });
+ app.get('/logout', function (req, res){
+  req.logout();
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
+});
 
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/profile', // redirect to the secure profile section
