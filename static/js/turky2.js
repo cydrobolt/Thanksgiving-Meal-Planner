@@ -117,6 +117,15 @@ function saveRecipes(newRecipe) {
 	});
 }
 
+function updateRecipes() {
+	$.getJSON("/recipeList").
+	done( function(data) {
+		for (var i = 0; i < data.length; i++) { 
+			RECIPES.push(data[i]);
+		}
+	});
+}
+
 
 
 function updateEvents() {
