@@ -145,7 +145,8 @@ function updateEvents() {
 					temp = RECIPES[i];
 				}
 			}
-			console.log(temp);
+			window.location.replace("/viewrecipe/"+JSON.stringify(temp));
+
 		});
 	});
 }

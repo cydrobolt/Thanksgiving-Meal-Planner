@@ -115,6 +115,11 @@ app.get("/createevent", function(req,res){
 	res.render("createEvent.ejs", {title: "createEvent"});
 });
 
+app.get("/viewrecipe/:id", function(req,res){
+	var temp = JSON.parse(req.params.id);
+	res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
+});
+
 app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs", {title: "editRecipe"});
 });
@@ -155,7 +160,7 @@ app.post("/recipeList", function(req, res){
 
 app.get("/viewARecipe", function(req, res){
 	var temp = req.body;
-	res.render("viewRecipe.ejs", {temp: "recipe"});
+	res.render("viewRecipe.ejs", {recipe: temp, title: temp.name});
 });
 
 app.listen(process.env.PORT || 4000);
