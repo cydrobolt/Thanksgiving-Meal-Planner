@@ -2,6 +2,6 @@
 <h1>Edit Some Random Recipe</h1>
 	<div id="import"></div>
      <script>
-        var test = "<%= returnedJSON %>";      
+        document.getElementById("import").innerHTML = JSON.stringify(<%- JSON.stringify(returnedJSON) %>);      
      </script>
 <% include bottom %>

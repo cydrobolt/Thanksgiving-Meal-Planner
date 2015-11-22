@@ -140,7 +140,8 @@ var request = http.get(url, function (response) {
         console.log(buffer);
         console.log("\n");
         data = JSON.parse(buffer);
-        res.render('testimport.ejs', {title: "testimport", returnedJSON: buffer});
+        console.log(data);
+        res.render('testimport.ejs', {title: "testimport", returnedJSON: data});
     }); 
 }); 
 });
