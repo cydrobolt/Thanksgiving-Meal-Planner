@@ -11,31 +11,31 @@ app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
 
 app.get("/", function(req,res){
-	res.render("index.ejs");
+	res.render("index.ejs", {title: "home"});
 });
 
 app.get("/recipes", function(req,res){
-	res.render("recipes.ejs");
+	res.render("recipes.ejs", {title: "recipes"});
 });
 
 app.get("/events", function(req,res){
-	res.render("events.ejs");
+	res.render("events.ejs", {title: "events"});
 });
 
 app.get("/createevent", function(req,res){
-	res.render("createEvent.ejs");
+	res.render("createEvent.ejs", {title: "createEvent"});
 });
 
 app.get("/editrecipe", function(req,res){
-	res.render("editRecipe.ejs");
+	res.render("editRecipe.ejs", {title: "editRecipe"});
 });
 
 app.get("/myaccount", function(req,res){
-	res.render("myaccount.ejs");
+	res.render("myaccount.ejs", {title: "myaccount"});
 });
 
 app.get("/dashboard", function(req,res){
-	res.render("dashboard.ejs");
+	res.render("dashboard.ejs", {title: "dashboard"});
 });
 
 app.get("/eventList", function(req, res){

@@ -93,3 +93,14 @@ td {
 #createEventBtn, #createEvent_save, #createEvent_cooks, #createEvent_foods {
     margin-bottom: 20px;
 }
+li.active {
+    color:#4d2600; 
+    background-color:#e68900
+}
+.navbar-default .navbar-nav>li>a {
+    color:#e68900
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color:#4d2600; 
+    background-color:#e68900
+}
