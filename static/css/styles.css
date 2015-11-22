@@ -14,8 +14,8 @@ body {
 body,
 nav {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    color: #000084;
-    background-color: #F8F8F8
+    color: #4d2600;
+    background-color: #ffe5b3
 }
 body a {
     text-decoration: underline
@@ -28,7 +28,7 @@ nav a {
     color: #000084
 }
 a {
-    color: #0000d3
+    color: #ff0000
 }
 a:hover {
     color: #00B7FF
