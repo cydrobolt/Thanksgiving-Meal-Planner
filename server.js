@@ -50,9 +50,9 @@ app.get('/signup', function(req, res) {
     });
 
 
-app.get('/profile', isLoggedIn, function(req, res) {
-	res.render('profile.ejs', {
-            title: 'profile', user : req.user // get the user out of session and pass to template
+app.get('/myaccount', isLoggedIn, function(req, res) {
+	res.render('myaccount.ejs', {
+            title: 'myaccount', user : req.user // get the user out of session and pass to template
         });
 });
 
@@ -69,13 +69,13 @@ app.get('/logout', function (req, res){
 });
 
 app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/myaccount', // redirect to the secure myaccount section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
 
 app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/myaccount', // redirect to the secure myaccount section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -85,7 +85,7 @@ app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'e
 
 app.get('/auth/google/callback',
 	passport.authenticate('google', {
-		successRedirect : '/profile',
+		successRedirect : '/myaccount',
 		failureRedirect : '/'
 	}));
 
