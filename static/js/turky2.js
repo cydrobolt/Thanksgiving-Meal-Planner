@@ -16,7 +16,29 @@ $('#createEvent_addFood').on('click', function(e){
 	foodsForEvent++;
 });
 
-
+$('#recipesearch').on('click', function(e){
+	e.preventDefault();
+	var content = $('#recipesearchname').val();
+	$.getJSON('searchrecipe/' + content)
+  .done(function (data) {
+		$('#searchresult').empty();
+  	if (data["count"]===0) {
+  		$('<p>').attr({
+	 			id: "noresults"
+	    }).appendTo('#searchresult');
+	    $('#noresults').text("No results found.");
+  	}
+  	else {
+	  	for (var i = 0; i < data["count"]; i++){
+				$('<p>').attr({
+		        id: 'ingred'+i
+		    }).appendTo('#searchresult');
+		    $('#ingred'+i).text(data["recipes"][i]["title"]);
+		    console.log( data["recipes"][i]["title"]);
+	  	}
+  	}
+  });
+});
 
 $('form[id=createEventPage]').on('submit', function(e){
 	e.preventDefault();
