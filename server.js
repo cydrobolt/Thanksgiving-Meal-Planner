@@ -14,6 +14,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var configDB = require('./config/database.js');
+var request = require('request');
 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -37,29 +38,20 @@ db.once('open', function (callback) {
 });
 
 app.get('/login', function(req, res) {
-
     // render the page and pass in any flash data if it exists
     res.render('login.ejs', {title: 'login', message: req.flash('loginMessage')}); 
 });
 
-
-
 app.get('/signup', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', {title: 'signup', message: req.flash('signupMessage')});
-    });
+    // render the page and pass in any flash data if it exists
+    res.render('signup.ejs', {title: 'signup', message: req.flash('signupMessage')});
+});
 
 
 app.get('/myaccount', isLoggedIn, function(req, res) {
 	res.render('myaccount.ejs', {title: 'myaccount', user : req.user});
 });
 
- //app.get('/logout', function(req, res) {
-     //   req.session.destroy();
-    //    req.logout();
-      //  res.redirect('/');
- //   });
 app.get('/logout', function (req, res){
 	req.logout();
 	req.session.destroy(function (err) {
@@ -114,6 +106,11 @@ app.get("/events", function(req,res){
 
 app.get("/createevent", function(req,res){
 	res.render("createEvent.ejs", {title: "createEvent"});
+});
+
+app.get("/viewrecipe/:id", function(req,res){
+	var temp = JSON.parse(req.params.id);
+	res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
 });
 
 app.get("/editrecipe", function(req,res){
@@ -184,7 +181,7 @@ app.post("/recipeList", function(req, res){
 
 app.get("/viewARecipe", function(req, res){
 	var temp = req.body;
-	res.render("viewRecipe.ejs", {temp: "recipe"});
+	res.render("viewRecipe.ejs", {recipe: temp, title: temp.name});
 });
 
 app.listen(process.env.PORT || 4000);
