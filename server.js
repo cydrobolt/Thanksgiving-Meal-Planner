@@ -27,13 +27,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
-mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://localhost/test');
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-	console.log("connected!");
-});
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function (callback) {
+// 	console.log("connected!");
+// });
 
 app.get('/login', function(req, res) {
 
