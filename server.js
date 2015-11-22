@@ -153,4 +153,9 @@ app.post("/recipeList", function(req, res){
 	res.send("done");
 });
 
+app.get("/viewARecipe", function(req, res){
+	var temp = req.body;
+	res.render("viewRecipe.ejs", {temp: "recipe"});
+});
+
 app.listen(process.env.PORT || 4000);
