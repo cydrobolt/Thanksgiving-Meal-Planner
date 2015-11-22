@@ -8,6 +8,7 @@ var ejs = require("ejs");
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
+var http = require('https');
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -28,13 +29,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
-// mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test');
 
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function (callback) {
-// 	console.log("connected!");
-// });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+	console.log("connected!");
+});
 
 app.get('/login', function(req, res) {
     // render the page and pass in any flash data if it exists
@@ -124,6 +125,35 @@ app.get("/viewrecipe/:id", function(req,res){
 
 app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs", {title: "editRecipe"});
+});
+
+app.get("/testimportrecipe", function(req,res){
+var http = require("http");
+    url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218";
+
+// get is a simple wrapper for request()
+// which sets the http method to GET
+var request = http.get(url, function (response) {
+    // data is streamed in chunks from the server
+    // so we have to handle the "data" event    
+    var buffer = "", 
+        data,
+        route;
+
+    response.on("data", function (chunk) {
+        buffer += chunk;
+    }); 
+
+    response.on("end", function (err) {
+        // finished transferring data
+        // dump the raw data
+        console.log(buffer);
+        console.log("\n");
+        data = JSON.parse(buffer);
+        console.log(data);
+        res.render('testimport.ejs', {title: "testimport", returnedJSON: data});
+    }); 
+}); 
 });
 
 app.get("/myaccount", function(req,res){
