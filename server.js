@@ -109,7 +109,17 @@ app.get("/createevent", function(req,res){
 
 app.get("/viewrecipe/:id", function(req,res){
 	var temp = JSON.parse(req.params.id);
-	res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
+	var ing;
+	request('http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218', function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			ing = JSON.parse(body);
+			res.render("viewRecipe.ejs", {title: "recipes", recipe: ing});
+		}
+		else {
+			res.render("viewRecipe.ejs", {title: "recipes", recipe: undefined});
+		}
+	});
+	// res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
 });
 
 app.get("/editrecipe", function(req,res){
