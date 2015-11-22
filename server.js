@@ -5,12 +5,102 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var ejs = require("ejs");
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
+
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+
+var configDB = require('./config/database.js');
+
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+//require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./config/passport')(passport); // pass passport for configuration
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
 mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+	console.log("connected!");
+});
+
+app.get('/login', function(req, res) {
+
+        // render the page and pass in any flash data if it exists
+        res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    });
+
+
+
+app.get('/signup', function(req, res) {
+
+        // render the page and pass in any flash data if it exists
+        res.render('signup.ejs', { message: req.flash('signupMessage') });
+    });
+
+
+app.get('/profile', isLoggedIn, function(req, res) {
+	res.render('profile.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+});
+
+ //app.get('/logout', function(req, res) {
+     //   req.session.destroy();
+    //    req.logout();
+      //  res.redirect('/');
+ //   });
+app.get('/logout', function (req, res){
+	req.logout();
+	req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+});
+});
+
+app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+app.get('/auth/google/callback',
+	passport.authenticate('google', {
+		successRedirect : '/profile',
+		failureRedirect : '/'
+	}));
+
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+    	return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
 
 app.get("/", function(req,res){
 	res.render("index.ejs", {title: "home"});
@@ -65,5 +155,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log("connected!");
 });
+
 
 app.listen(process.env.PORT || 4000);
