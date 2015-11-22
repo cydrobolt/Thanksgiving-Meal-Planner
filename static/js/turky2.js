@@ -139,7 +139,13 @@ function updateEvents() {
 		
 		$('.goToRecipe a').on('click', function(e) {
 			e.preventDefault();
-			console.log(RECIPES);
+			var temp;
+			for (var i = 0; i < RECIPES.length; i++) {
+				if (RECIPES[i].name === e.target.innerText) {
+					temp = RECIPES[i];
+				}
+			}
+			console.log(temp);
 		});
 	});
 }
