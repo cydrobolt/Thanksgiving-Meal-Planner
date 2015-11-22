@@ -13,6 +13,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var configDB = require('./config/database.js');
+var request = require('request');
 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -36,29 +37,20 @@ app.set('view engine', 'ejs');
 // });
 
 app.get('/login', function(req, res) {
-
     // render the page and pass in any flash data if it exists
     res.render('login.ejs', {title: 'login', message: req.flash('loginMessage')}); 
 });
 
-
-
 app.get('/signup', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', {title: 'signup', message: req.flash('signupMessage')});
-    });
+    // render the page and pass in any flash data if it exists
+    res.render('signup.ejs', {title: 'signup', message: req.flash('signupMessage')});
+});
 
 
 app.get('/myaccount', isLoggedIn, function(req, res) {
 	res.render('myaccount.ejs', {title: 'myaccount', user : req.user});
 });
 
- //app.get('/logout', function(req, res) {
-     //   req.session.destroy();
-    //    req.logout();
-      //  res.redirect('/');
- //   });
 app.get('/logout', function (req, res){
 	req.logout();
 	req.session.destroy(function (err) {
