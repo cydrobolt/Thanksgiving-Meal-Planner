@@ -134,6 +134,12 @@ app.get("/eventList", function(req, res){
 	res.send(eventsObject);
 });
 
+app.get("/erecipeList", function(req, res){
+	var recipesObject = fs.readFileSync("data/recipes.json");
+	res.send(recipesObject);
+});
+
+
 app.post("/eventList", function(req, res){
 	var eventsObject = JSON.parse(fs.readFileSync("data/events.json"));
 	eventsObject.push(req.body);

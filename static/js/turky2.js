@@ -130,7 +130,7 @@ function updateEvents() {
 		
 		$('.goToRecipe a').on('click', function(e) {
 			e.preventDefault();
-			console.log(e.target.id+"   "+e.target.innerHTML);
+			console.log(RECIPES);
 		});
 	});
 }
