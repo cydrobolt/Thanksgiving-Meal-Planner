@@ -52,7 +52,6 @@ function createEventListing(){
 
 	for (var i = 0; i < foodsForEvent; i++){
 		temp.foods.push($('#createEvent_foodName'+i).val());
-		createRecipeListing(temp.foods[i]);
 	}
 
 	$('#createEvent_cooks').html("");
@@ -87,7 +86,7 @@ function createRecipeListing(name) {
 	$('#createEvent_ingreds').html("");
 
 	RECIPES.push(temp);
-	console.log(RECIPES);
+	saveRecipes(temp);
 
 	stepsForRecipe = 0;
 	ingredForRecipe = 0;
@@ -105,6 +104,18 @@ function saveEvents(newEvent) {
 		}
 	});
 }
+
+
+function saveRecipes(newRecipe) {
+	console.log(RECIPES);
+	$.ajax ({
+		type: "POST",
+		url: "/recipeList",
+		data: JSON.stringify(newRecipe),
+		contentType: "application/json"
+	});
+}
+
 
 
 function updateEvents() {

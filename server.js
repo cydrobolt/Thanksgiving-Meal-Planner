@@ -52,6 +52,14 @@ app.post("/eventList", function(req, res){
 	res.send("done");
 });
 
+app.post("/recipeList", function(req, res){
+	var recipesObject = JSON.parse(fs.readFileSync("data/recipes.json"));
+	recipesObject.push(req.body);
+	console.log(req.body);
+	fs.writeFileSync("data/recipes.json", JSON.stringify(recipesObject));
+	res.send("done");
+});
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
