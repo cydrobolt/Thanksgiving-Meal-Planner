@@ -30,17 +30,31 @@ $('#recipesearch').on('click', function(e){
   	}
   	else {
 	  	for (var i = 0; i < data["count"]; i++){
-				$('<p>').attr({
-		        id: 'ingred'+i
+				$('<a>').attr({
+		        id: 'ingred'+i,
+		        class: 'ingredients'
 		    }).appendTo('#searchresult');
+		    $('<br>').appendTo('#searchresult');
 		    $('#ingred'+i).text(data["recipes"][i]["title"]);
-		    console.log( data["recipes"][i]["title"]);
-	  	}
+	  	} 
   	}
   });
 });
 
-$('form[id=createEventPage]').on('submit', function(e){
+$('.searchresults').on('click', function(e){
+	e.preventDefault(); 
+	var from = e.target || e.srcElement;
+	console.log(e);
+	console.log(from.innerHTML);
+	$('<p>').attr({
+    id: from.innerHTML,
+    class: 'ftc'
+	}).appendTo('#foodtocook');
+	$("#" + from.innerHTML).text(from.innerHTML);
+  $(this).remove();
+});
+
+$('#createEvent_save').on('click', function(e){
 	e.preventDefault();
 	createEventListing();
 	window.location.replace("/events");
