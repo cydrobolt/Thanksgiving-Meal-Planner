@@ -1,5 +1,7 @@
 var foodsForEvent = 0;
 var cooksForEvent = 0;
+var stepsForRecipie = 0;
+var ingredForRecipie = 0;
 
 var EVENTS = [];
 
@@ -11,6 +13,16 @@ $('#createEvent_addCook').on('click', function(e){
 $('#createEvent_addFood').on('click', function(e){
 	$('#createEvent_foods').append("<li><h5>Name of Food</h5><input type=\"text\" id=\"createEvent_foodName"+foodsForEvent+"\" placeholder=\"Food Name...\" required></li>");
 	foodsForEvent++;
+});
+
+$('#editRecipie_addStep').on('click', function(e){
+	$('#editRecipie_steps').append("<li><input type=\"text\" id=\"editRecipie_stepText"+stepsForRecipie+"\" placeholder=\"Recipie Step...\" required></li>");
+	stepsForRecipie++;
+});
+
+$('#editRecipie_addIngred').on('click', function(e){
+	$('#editRecipie_ingreds').append("<li><input type=\"text\" id=\"editRecipie_ingredText"+ingredForRecipie+"\" placeholder=\"Ingrediant and Amount...\" required></li>");
+	ingredForRecipie++;
 });
 
 $('form[id=createEventPage]').on('submit', function(e){
