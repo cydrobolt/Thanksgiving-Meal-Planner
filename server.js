@@ -3,12 +3,14 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var ejs = require("ejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static('static'));
 app.set('view engine', 'ejs');
+mongoose.connect('mongodb://localhost/test');
 
 app.get("/", function(req,res){
 	res.render("index.ejs", {title: "home"});
@@ -48,6 +50,12 @@ app.post("/eventList", function(req, res){
 	eventsObject.push(req.body);
 	fs.writeFileSync("data/events.json", JSON.stringify(eventsObject));
 	res.send("done");
+});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log("connected!");
 });
 
 app.listen(process.env.PORT || 4000);
