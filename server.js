@@ -110,17 +110,8 @@ app.get("/createevent", function(req,res){
 
 app.get("/viewrecipe/:id", function(req,res){
 	var temp = JSON.parse(req.params.id);
-	var ing;
-	request('http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218', function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-			ing = JSON.parse(body);
-			res.render("viewRecipe.ejs", {title: "recipes", recipe: ing});
-		}
-		else {
-			res.render("viewRecipe.ejs", {title: "recipes", recipe: undefined});
-		}
-	});
-	// res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
+	console.log(temp);
+	res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
 });
 
 app.get("/searchrecipe/:id", function(req, res) {
@@ -140,9 +131,9 @@ app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs", {title: "editRecipe"});
 });
 
-app.get("/testimportrecipe", function(req,res){
-var http = require("http");
-    url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218";
+app.post("/importRecipe", function(req,res){
+	var http = require("http");
+	url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218";
 
 // get is a simple wrapper for request()
 // which sets the http method to GET
@@ -150,11 +141,11 @@ var request = http.get(url, function (response) {
     // data is streamed in chunks from the server
     // so we have to handle the "data" event    
     var buffer = "", 
-        data,
-        route;
+    data,
+    route;
 
     response.on("data", function (chunk) {
-        buffer += chunk;
+    	buffer += chunk;
     }); 
 
     response.on("end", function (err) {
@@ -164,9 +155,22 @@ var request = http.get(url, function (response) {
         console.log("\n");
         data = JSON.parse(buffer);
         console.log(data);
-        res.render('testimport.ejs', {title: "testimport", returnedJSON: data});
+        var temp = {
+        	"name": data["recipe"]["title"],
+        	"owner": data["publisher"],
+        	"steps": [],
+        	"ingreds": data["recipe"]["ingredients"]
+        };
+        console.log(temp);
+        var recipesObject = JSON.parse(fs.readFileSync("data/recipes.json"));
+        recipesObject.push(temp);
+        fs.writeFileSync("data/recipes.json", JSON.stringify(recipesObject));
+        
+        //{"name":"Goose","owner":"nobodyYet","steps":[],"ingreds":[]}
     }); 
 }); 
+
+res.send("done");
 });
 
 app.get("/myaccount", function(req,res){
@@ -201,11 +205,6 @@ app.post("/recipeList", function(req, res){
 	console.log(req.body);
 	fs.writeFileSync("data/recipes.json", JSON.stringify(recipesObject));
 	res.send("done");
-});
-
-app.get("/viewARecipe", function(req, res){
-	var temp = req.body;
-	res.render("viewRecipe.ejs", {recipe: temp, title: temp.name});
 });
 
 app.listen(process.env.PORT || 4000);

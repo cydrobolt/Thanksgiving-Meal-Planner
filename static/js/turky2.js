@@ -90,29 +90,14 @@ function createEventListing(){
 
 
 function createRecipeListing(name) {
-	var temp = {
-		"name": name,
-		"owner": "nobodyYet",
-		"steps": [],
-		"ingreds": []
-	};
-
-	for (var i = 0; i < stepsForRecipe; i++){
-		temp.steps.push($('#editRecipe_addStep'+i).val());
-	}
-
-	for (var i = 0; i < ingredForRecipe; i++){
-		temp.ingreds.push($('#editRecipe_addIngred'+i).val());
-	}
-
-	$('#editRecipe_steps').html("");
-	$('#createEvent_ingreds').html("");
-
-	RECIPES.push(temp);
-	saveRecipes(temp);
-
-	stepsForRecipe = 0;
-	ingredForRecipe = 0;
+	$.ajax ({
+		type: "POST",
+		url: "/importRecipe",
+		data: "number",
+		complete: function() {
+			updateRecipes();
+		}
+	});
 }
 
 
@@ -123,7 +108,7 @@ function saveEvents(newEvent) {
 		data: JSON.stringify(newEvent),
 		contentType: "application/json",
 		complete: function() {
-			updateEvents()
+			updateEvents();
 		}
 	});
 }
@@ -163,7 +148,7 @@ function updateEvents() {
 			e.preventDefault();
 			var temp;
 			for (var i = 0; i < RECIPES.length; i++) {
-				if (RECIPES[i].name === e.target.innerText) {
+				if (RECIPES[i].name === "Fiesta Corn Tortilla Pizzas") {
 					temp = RECIPES[i];
 				}
 			}
