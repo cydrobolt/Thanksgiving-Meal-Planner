@@ -104,3 +104,5 @@ li.active {
     color:#4d2600; 
     background-color:#e68900
 }
+
+ul.nav a:hover { color: #fff !important; }
