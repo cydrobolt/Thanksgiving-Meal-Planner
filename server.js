@@ -114,6 +114,19 @@ app.get("/viewrecipe/:id", function(req,res){
 	res.render("viewRecipe.ejs", {title: "viewRecipe", recipe: temp});
 });
 
+app.get("/searchrecipe/:id", function(req, res) {
+	var ing;
+	request('http://food2fork.com/api/search?key=a809f49e42a99449eeaf0333684d1ecc&q=' + req.params.id, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			ing = JSON.parse(body);
+			res.send (ing);
+		}
+		else {
+			res.send (undefined);
+		}
+	});
+});
+
 app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs", {title: "editRecipe"});
 });
