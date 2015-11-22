@@ -127,7 +127,7 @@ app.get("/editrecipe", function(req,res){
 	res.render("editRecipe.ejs", {title: "editRecipe"});
 });
 
-app.get("/testimportrecipe", function(req,res){
+app.post("/testimportrecipe", function(req,res){
 var http = require("http");
     url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218";
 
@@ -151,7 +151,17 @@ var request = http.get(url, function (response) {
         console.log("\n");
         data = JSON.parse(buffer);
         console.log(data);
-        res.render('testimport.ejs', {title: "testimport", returnedJSON: data});
+        var temp = {
+		"name": data["recipe"]["title"],
+		"owner": data["publisher"],
+		"steps": [],
+		"ingreds": data["recipe"]["ingredients"]
+	};
+    var recipesObject = JSON.parse(fs.readFileSync("data/recipes.json"));
+	recipesObject.push(temp);
+	fs.writeFileSync("data/recipes.json", JSON.stringify(recipesObject));
+	res.send("done");
+        //{"name":"Goose","owner":"nobodyYet","steps":[],"ingreds":[]}
     }); 
 }); 
 });
