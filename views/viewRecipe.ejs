@@ -2,12 +2,16 @@
 	<h1><%=recipe.name%></h1>
 	<ul id="recipeInfo">
 		<h4>Steps</h4>
+		<ol id="recipeInfo_steps">
+			<%for (var i = 0; i < recipe.steps.length; i++) {%>
+				<li><%=recipe.step[i]%></li>
+			<%}%>
+		</ol>
 		<h4>Ingredients</h4>
 		<ol id="recipeInfo_ingreds">
-			<%for (var i = 0; i < recipe["recipe"]["ingredients"].length; i++) {%>
-				<li><%= recipe["recipe"]["ingredients"][i]%></li>
+			<%for (var i = 0; i < recipe.ingreds.length; i++) {%>
+				<li><%=recipe.ingreds[i]%></li>
 			<%}%>
 		</ol>
 	</ul>
 <% include bottom %>
-
