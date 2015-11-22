@@ -120,7 +120,7 @@ app.get("/editrecipe", function(req,res){
 
 app.post("/importRecipe", function(req,res){
 	var http = require("http");
-	url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=13218";
+	url = "http://food2fork.com/api/get?key=a809f49e42a99449eeaf0333684d1ecc&rId=" + req.body;
 
 // get is a simple wrapper for request()
 // which sets the http method to GET

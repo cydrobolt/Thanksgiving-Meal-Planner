@@ -52,7 +52,7 @@ function createEventListing(){
 
 	for (var i = 0; i < foodsForEvent; i++){
 		temp.foods.push($('#createEvent_foodName'+i).val());
-		createRecipeListing(temp.foods[i]);
+		createRecipeListing("13218");
 	}
 
 	$('#createEvent_cooks').html("");
@@ -67,11 +67,11 @@ function createEventListing(){
 }
 
 
-function createRecipeListing(name) {
+function createRecipeListing(recipeID) {
 	$.ajax ({
 		type: "POST",
 		url: "/importRecipe",
-		data: "number",
+		data: recipeID,
 		complete: function() {
 			updateRecipes();
 		}
@@ -126,7 +126,7 @@ function updateEvents() {
 			e.preventDefault();
 			var temp;
 			for (var i = 0; i < RECIPES.length; i++) {
-				if (RECIPES[i].name === "Fiesta Corn Tortilla Pizzas") {
+				if (RECIPES[i].name === e.target.innerText) {
 					temp = RECIPES[i];
 				}
 			}
