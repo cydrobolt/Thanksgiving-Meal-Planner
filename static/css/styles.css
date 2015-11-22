@@ -6,6 +6,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    padding-bottom: 200px;
     position: absolute;
     overflow-y: scroll; 
     left: 0;
@@ -88,4 +89,7 @@ td {
 }
 .icon-bar {
     background-color: #000084
+}
+#createEventBtn, #createEvent_save, #createEvent_cooks, #createEvent_foods {
+    margin-bottom: 20px;
 }
