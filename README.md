@@ -1,2 +1,5 @@
-# KAMP
+# Thanksgiving Meal Planner
+* Node.js
+* Express
+* MongoDB
 TURKY TURKY TURKY TURKY TURKY TURKY TURKY TURKY TURKY TURKY TURKY
